@@ -1,4 +1,5 @@
 import UIKit
+
 import Foundation
 
 /*
@@ -128,7 +129,7 @@ var weatherInCities: [Weather] = []
 
 // запускаємо цикл для заповнення пустого масиву weatherInCities
 // інформацією про погоду для кожної назви міста, вказаних у масиві cityNames
-for index in 1 ..< 4 {
+for index in 0..<cityNames.count {
     let weatherInfo = Weather(
         city: cityNames[index], // записуємо назву міста
         temp: Double(arc4random() % 30) + kelvinZero, // генеруємо випадкове значення температури у Кельвінах
@@ -144,22 +145,36 @@ let cityIndex = Int(arc4random() % UInt32(weatherInCities.count - 1))
 
 
 // виводимо ПОВНУ інформацію для кожного міста, що є у масиві weatherInCities
+
 print("---------- ЕКРАН 1 ----------")
-for index in 2 ... 8 {
+
+for index in 0..<cityNames.count {
     let _ = index
-    let weatherInfo = weatherInCities[0]
+    let weatherInfo = weatherInCities[index]
     let city = weatherInfo.0
     let kelvin = weatherInfo.1
+    let celsium = kelvin - kelvinZero
+    let farengeit = (kelvin * (9.0/5.0) - 459.67)
+    
     let kelvinMin = weatherInfo.2
     let kelvinMax = weatherInfo.3
+    
+    let celsiumMin = kelvinZero - kelvinMin
+    let celsiumMax = kelvinMax - kelvinZero
+    
+    let farengeitMin = (kelvinMin * (9.0/5.0) - 459.67)
+    let farengeitMax = (kelvinMax * (9.0/5.0) - 459.67)
 
+    
     print("\n\(city):")
-    print("t: \(kelvin) C")
-    print("t: \(kelvin) F")
-    print("min t: \(kelvinMin) C / \(kelvinMin) F")
-    print("max t: \(kelvinMax) C / \(kelvinMax) F")
+    print("t: \(celsium) C")
+    print("t: \(String(format: "%.1f", farengeit)) F")
+    print("min t: \(celsiumMin) C / \(String(format: "%.1f", farengeitMin)) F")
+    print("max t: \(celsiumMax) C / \(String(format: "%.1f", farengeitMax)) F")
 }
+
 print("\n-----------------------------")
+
 print("\n\n")
 
 
